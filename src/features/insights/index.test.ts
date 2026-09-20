@@ -71,4 +71,12 @@ describe('computeInsights', () => {
     expect(result.receiptsByType['music']).toBe(2);
     expect(result.receiptsByType['purchase']).toBe(1);
   });
+
+  it('sums spending amounts', () => {
+    const receipts = [
+      make({ id: '1', type: 'purchase', metadata: { amount: 100 } }),
+      make({ id: '2', type: 'purchase', metadata: { amount: 250.4 } }),
+    ];
+    expect(computeInsights(receipts).totalSpent).toBe(350);
+  });
 });

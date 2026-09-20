@@ -25,10 +25,15 @@ interface AppState {
   selectedReceiptId: string | null;
   insights: DataInsights | null;
   viewedReceiptIds: Record<string, true>;
+  /** Updates the active search term for filtering receipts. */
   setSearch: (term: string) => void;
+  /** Sets the active category filter chip. */
   setType: (type: ReceiptType | 'all') => void;
+  /** Switches the active view, tracking the previous view for Back navigation. */
   setView: (view: ViewMode) => void;
+  /** Selects a receipt for relationship discovery, or clears selection to return back. */
   setSelectedReceipt: (id: string | null) => void;
+  /** Asynchronously loads normalized receipt records and computes cached insights. */
   loadData: () => Promise<void>;
 }
 
@@ -43,8 +48,10 @@ export const useStore = create<AppState>((set) => ({
   insights: null,
   viewedReceiptIds: {},
 
+  /** Switches the active view, tracking the previous view for Back navigation. */
   setView: (view) => set((s) => ({ activeView: view, previousView: s.activeView })),
 
+  /** Selects a receipt for relationship discovery, or clears selection to return back. */
   setSelectedReceipt: (id) => {
     if (id) {
       set((state) => ({
@@ -59,6 +66,7 @@ export const useStore = create<AppState>((set) => ({
     }
   },
 
+  /** Asynchronously loads normalized receipt records and computes cached insights. */
   loadData: async () => {
     try {
       const module = await import('../../data/receipts.json');
@@ -72,6 +80,8 @@ export const useStore = create<AppState>((set) => ({
     }
   },
 
+  /** Updates the active search term for filtering receipts. */
   setSearch: (term) => set((s) => ({ filters: { ...s.filters, search: term } })),
+  /** Sets the active category filter chip. */
   setType: (type) => set((s) => ({ filters: { ...s.filters, type } })),
 }));

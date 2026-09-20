@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useStore } from '../../shared/store/useStore';
 import { Music, ShoppingCart, Calendar, Moon, TrendingUp, BarChart3, Sparkles } from 'lucide-react';
 import { format } from 'date-fns';
@@ -5,6 +6,34 @@ import { motion } from 'framer-motion';
 
 export const InsightsDashboard = () => {
   const insights = useStore((s) => s.insights);
+  const receipts = useStore((s) => s.receipts);
+
+  const heatmap = useMemo(() => {
+    const byDay: Record<string, number> = {};
+    receipts.forEach((r) => {
+      const d = r.timestamp.split('T')[0];
+      byDay[d] = (byDay[d] || 0) + 1;
+    });
+    const days = Object.keys(byDay).sort();
+    if (days.length === 0) return [];
+    const start = new Date(days[0]);
+    // pad to Sunday
+    const pad = start.getDay();
+    start.setDate(start.getDate() - pad);
+    const end = new Date(days[days.length - 1]);
+    const weeks: { date: string; count: number }[][] = [];
+    let cur: { date: string; count: number }[] = [];
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+      const key = d.toISOString().split('T')[0];
+      cur.push({ date: key, count: byDay[key] || 0 });
+      if (cur.length === 7) {
+        weeks.push(cur);
+        cur = [];
+      }
+    }
+    if (cur.length) weeks.push(cur);
+    return weeks;
+  }, [receipts]);
 
   if (!insights) return null;
 
@@ -93,6 +122,39 @@ export const InsightsDashboard = () => {
             {card.sub && <p className="font-mono text-xs text-gray-500 mt-1">{card.sub}</p>}
           </motion.div>
         ))}
+      </div>
+
+      {/* Activity Heatmap */}
+      <div className="bg-white border-2 border-gray-900 shadow-[3px_3px_0px_0px_rgba(17,24,39,1)] p-6 mb-16">
+        <h3 className="font-mono text-sm uppercase tracking-widest text-gray-500 mb-4">
+          Activity Heatmap — the shape of 3 years
+        </h3>
+        <div className="overflow-x-auto hide-scrollbar">
+          <div className="flex gap-1" role="img" aria-label="Calendar heatmap of daily activity across the dataset">
+            {heatmap.map((week, wi) => (
+              <div key={wi} className="flex flex-col gap-1">
+                {week.map((day) => (
+                  <div
+                    key={day.date}
+                    title={`${day.date}: ${day.count} activities`}
+                    className={`w-3 h-3 rounded-[2px] ${
+                      day.count === 0
+                        ? 'bg-gray-100'
+                        : day.count < 3
+                          ? 'bg-red-200'
+                          : day.count < 6
+                            ? 'bg-red-400'
+                            : 'bg-red-700'
+                    }`}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center gap-2 mt-3 font-mono text-[10px] text-gray-500">
+          Less <div className="w-3 h-3 bg-gray-100 rounded-[2px]" /><div className="w-3 h-3 bg-red-200 rounded-[2px]" /><div className="w-3 h-3 bg-red-400 rounded-[2px]" /><div className="w-3 h-3 bg-red-700 rounded-[2px]" /> More
+        </div>
       </div>
 
       {/* Type Distribution */}

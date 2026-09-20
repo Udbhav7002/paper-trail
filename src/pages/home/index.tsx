@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { useStore } from '../../shared/store/useStore';
-import { Ledger } from '../../widgets/ledger';
-import { TheWeb } from '../../widgets/the-web';
-import { TheThread } from '../../widgets/the-thread';
-import { InsightsDashboard } from '../../widgets/insights-dashboard';
 import { LayoutGrid, Network, BookOpen, BarChart3, Fingerprint } from 'lucide-react';
 import type { ViewMode } from '../../shared/store/useStore';
+
+const Ledger = lazy(() => import('../../widgets/ledger').then((m) => ({ default: m.Ledger })));
+const TheWeb = lazy(() => import('../../widgets/the-web').then((m) => ({ default: m.TheWeb })));
+const TheThread = lazy(() => import('../../widgets/the-thread').then((m) => ({ default: m.TheThread })));
+const InsightsDashboard = lazy(() => import('../../widgets/insights-dashboard').then((m) => ({ default: m.InsightsDashboard })));
 
 const NAV_ITEMS: { view: ViewMode; icon: typeof LayoutGrid; label: string; alwaysEnabled: boolean }[] = [
   { view: 'explore', icon: LayoutGrid, label: 'Explore', alwaysEnabled: true },
@@ -56,12 +57,14 @@ export const HomePage = () => {
           {error ? (
             <div className="py-20 text-center text-red-600 font-mono" role="alert">Failed to load receipts: {error}</div>
           ) : (
-            <AnimatePresence mode="wait">
-              {activeView === 'explore' && <Ledger key="ledger" />}
-              {activeView === 'connect' && <TheWeb key="web" />}
-              {activeView === 'story' && <TheThread key="story" />}
-              {activeView === 'insights' && <InsightsDashboard key="insights" />}
-            </AnimatePresence>
+            <Suspense fallback={<div className="py-20 text-center font-mono text-gray-600" role="status">Loading view…</div>}>
+              <AnimatePresence mode="wait">
+                {activeView === 'explore' && <Ledger key="ledger" />}
+                {activeView === 'connect' && <TheWeb key="web" />}
+                {activeView === 'story' && <TheThread key="story" />}
+                {activeView === 'insights' && <InsightsDashboard key="insights" />}
+              </AnimatePresence>
+            </Suspense>
           )}
         </main>
       </MotionConfig>
