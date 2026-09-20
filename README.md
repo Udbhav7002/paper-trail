@@ -25,3 +25,11 @@ src/app → widgets → features (pure: connection, insights) → entities → s
 
 ## Commands
 npm run dev / build / test / lint
+
+## Accessibility & Performance
+WCAG AA contrast (verified 4.5:1+), keyboard navigable, aria-current navigation,
+aria-live counters, reduced-motion via MotionConfig. Data fetched once and cached;
+only 50 DOM nodes rendered at a time.
+
+## Tech Stack
+React 19 · TypeScript (strict) · Vite 8 · Tailwind CSS 4 · Zustand · Framer Motion · date-fns · Vitest
