@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import type { Receipt, ReceiptType, DataInsights } from '../../entities/receipt';
-import { computeInsights } from '../../features/insightsEngine';
+import type { Receipt, ReceiptType, DataInsights } from '../../entities/receipt-model';
+import { computeInsights } from '../../features/insights';
 
 interface FilterState {
   search: string;

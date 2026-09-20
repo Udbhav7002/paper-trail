@@ -1,4 +1,4 @@
-import { useStore } from '../shared/store/useStore';
+import { useStore } from '../../shared/store/useStore';
 import { Music, ShoppingCart, Calendar, Moon, TrendingUp, BarChart3, Sparkles } from 'lucide-react';
 import { format } from 'date-fns';
 import { motion } from 'framer-motion';

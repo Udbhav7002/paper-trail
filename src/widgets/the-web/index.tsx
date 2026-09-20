@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { useStore } from '../shared/store/useStore';
-import { ReceiptCard } from '../shared/ui/ReceiptCard';
-import { findConnections } from '../features/connectionEngine';
+import { useStore } from '../../shared/store/useStore';
+import { ReceiptCard } from '../../shared/ui/ReceiptCard';
+import { findConnections } from '../../features/connection';
 import { ArrowLeft, Link2 } from 'lucide-react';
 
 export const TheWeb = () => {

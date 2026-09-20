@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { useStore } from '../shared/store/useStore';
-import { Ledger } from '../widgets/Ledger';
-import { TheWeb } from '../widgets/TheWeb';
-import { TheThread } from '../widgets/TheThread';
-import { InsightsDashboard } from '../widgets/InsightsDashboard';
+import { Ledger } from '../widgets/ledger';
+import { TheWeb } from '../widgets/the-web';
+import { TheThread } from '../widgets/the-thread';
+import { InsightsDashboard } from '../widgets/insights-dashboard';
 import { LayoutGrid, Network, BookOpen, BarChart3, Fingerprint } from 'lucide-react';
 import type { ViewMode } from '../shared/store/useStore';
 

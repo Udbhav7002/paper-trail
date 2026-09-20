@@ -1,4 +1,4 @@
-import type { Receipt } from '../entities/receipt';
+import type { Receipt } from '../../entities/receipt-model';
 
 /**
  * Represents a logical connection between two receipts.

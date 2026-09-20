@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { useStore } from '../shared/store/useStore';
-import { ReceiptCard } from '../shared/ui/ReceiptCard';
+import { useStore } from '../../shared/store/useStore';
+import { ReceiptCard } from '../../shared/ui/ReceiptCard';
 import { BookOpen } from 'lucide-react';
 
 /**

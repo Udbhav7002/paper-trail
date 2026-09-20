@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
-import { useStore } from '../shared/store/useStore';
-import { ReceiptCard } from '../shared/ui/ReceiptCard';
+import { useStore } from '../../shared/store/useStore';
+import { ReceiptCard } from '../../shared/ui/ReceiptCard';
 import { Search, Filter } from 'lucide-react';
-import type { ReceiptType } from '../entities/receipt';
+import type { ReceiptType } from '../../entities/receipt-model';
 
 const TYPES: { value: ReceiptType | 'all'; label: string }[] = [
   { value: 'all', label: 'All' },

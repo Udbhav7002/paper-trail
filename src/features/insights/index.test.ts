@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { computeInsights } from './insightsEngine';
-import type { Receipt } from '../entities/receipt';
+import { computeInsights } from './index';
+import type { Receipt } from '../../entities/receipt-model';
 
 const make = (over: Partial<Receipt>): Receipt => ({
   id: 'x',

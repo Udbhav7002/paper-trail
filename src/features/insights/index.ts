@@ -1,4 +1,4 @@
-import type { Receipt, DataInsights } from '../entities/receipt';
+import type { Receipt, DataInsights } from '../../entities/receipt-model';
 
 /**
  * Computes aggregate insights from the full receipt dataset.

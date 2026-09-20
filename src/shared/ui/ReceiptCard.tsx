@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { ShoppingCart, Music, MessageSquare, Search, StickyNote, MapPin, Calendar } from 'lucide-react';
-import type { Receipt } from '../../entities/receipt';
+import type { Receipt } from '../../entities/receipt-model';
 import { format } from 'date-fns';
 
 interface Props {

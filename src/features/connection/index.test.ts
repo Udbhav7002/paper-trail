@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { findConnections } from './connectionEngine';
-import type { Receipt } from '../entities/receipt';
+import { findConnections } from './index';
+import type { Receipt } from '../../entities/receipt-model';
 
 const make = (over: Partial<Receipt>): Receipt => ({
   id: 'x',
