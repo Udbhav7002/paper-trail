@@ -6,7 +6,7 @@ Paper Trail transforms disconnected digital life receipts into a meaningful, int
 
 ## 🔗 Live Demo
 
-[View Deployed App](#) <!-- Replace with Vercel URL after deployment -->
+[View Deployed App](https://paper-trail-ivory.vercel.app/)
 
 ---
 
