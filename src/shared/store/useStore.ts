@@ -61,9 +61,8 @@ export const useStore = create<AppState>((set) => ({
 
   loadData: async () => {
     try {
-      const response = await fetch('/receipts.json');
-      if (!response.ok) throw new Error('Network response was not ok');
-      const data = await response.json() as Receipt[];
+      const module = await import('../../data/receipts.json');
+      const data = module.default as Receipt[];
       const insights = computeInsights(data);
       set({ receipts: data, insights, isLoading: false, error: null });
     } catch (e) {
