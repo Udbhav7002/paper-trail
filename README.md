@@ -1,7 +1,7 @@
 # Paper Trail 🧾
 > Raw Data → Insights → Connections → Story
 
-A forensic analysis of 6,200 digital life receipts (2015–2018) — household transactions,
+A forensic analysis of 4,464 digital life receipts (2015–2018) — household transactions,
 Spotify listening history, and daily moments — reconstructed into an interactive story.
 
 ## The Story Uncovered
