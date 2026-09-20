@@ -7,8 +7,14 @@ interface FilterState {
   type: ReceiptType | 'all';
 }
 
+/**
+ * Represents the current active view mode within the application.
+ */
 export type ViewMode = 'explore' | 'connect' | 'story' | 'insights';
 
+/**
+ * The primary application state interface managing receipts, filters, and view modes.
+ */
 interface AppState {
   receipts: Receipt[];
   isLoading: boolean;
@@ -55,8 +61,9 @@ export const useStore = create<AppState>((set) => ({
 
   loadData: async () => {
     try {
-      const module = await import('../../data/receipts.json');
-      const data = module.default as Receipt[];
+      const response = await fetch('/receipts.json');
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json() as Receipt[];
       const insights = computeInsights(data);
       set({ receipts: data, insights, isLoading: false, error: null });
     } catch (e) {

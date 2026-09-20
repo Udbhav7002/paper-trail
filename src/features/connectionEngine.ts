@@ -1,11 +1,22 @@
 import type { Receipt } from '../entities/receipt';
 
+/**
+ * Represents a logical connection between two receipts.
+ */
 export interface Connection {
   receipt: Receipt;
   reason: string;
   score: number;
 }
 
+/**
+ * Finds and ranks related receipts based on a deterministic scoring algorithm.
+ * Evaluates same-day occurrences, location matches, and shared tags.
+ *
+ * @param target - The source receipt to find connections for.
+ * @param allReceipts - The full dataset of receipts to evaluate against.
+ * @returns The top 10 strongest connections, sorted by relevance score.
+ */
 export function findConnections(target: Receipt, allReceipts: Receipt[]): Connection[] {
   const connections: Connection[] = [];
   const targetDate = target.timestamp.split('T')[0];

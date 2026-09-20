@@ -3,6 +3,9 @@ import type { Receipt, DataInsights } from '../entities/receipt';
 /**
  * Computes aggregate insights from the full receipt dataset.
  * Runs once on data load. Pure function, no side effects.
+ *
+ * @param receipts - The complete array of parsed receipts.
+ * @returns A structured DataInsights object containing analytics like top artist, total spent, and late night metrics.
  */
 export function computeInsights(receipts: Receipt[]): DataInsights {
   const receiptsByType: Record<string, number> = {};
