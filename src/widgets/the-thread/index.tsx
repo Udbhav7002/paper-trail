@@ -73,7 +73,7 @@ export const TheThread = () => {
       <div className="text-center">
         <BookOpen size={48} className="mx-auto mb-4 text-gray-300" aria-hidden="true" />
         <h2 className="text-3xl font-black uppercase tracking-tighter">The Narrative Thread</h2>
-        <p className="font-mono text-gray-500 mt-2 max-w-xl mx-auto leading-relaxed">
+        <p className="font-mono text-gray-600 mt-2 max-w-xl mx-auto leading-relaxed">
           Four chapters extracted from receipt metadata. Each one answers a question the data
           raised — but only if you look closely enough.
         </p>

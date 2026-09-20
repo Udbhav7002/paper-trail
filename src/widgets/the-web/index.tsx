@@ -86,9 +86,14 @@ export const TheWeb = () => {
                   </div>
 
                   <div className="flex-1 w-full">
-                    <div className="mb-2 inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-800 text-xs font-mono px-3 py-1.5">
-                      <Link2 size={12} aria-hidden="true" />
-                      <span>{conn.reason}</span>
+                    <div className="mb-2 inline-flex flex-col gap-1 bg-red-50 border border-red-100 text-red-800 text-xs font-mono px-3 py-1.5">
+                      <div className="flex items-center gap-2">
+                        <Link2 size={12} aria-hidden="true" />
+                        <span>{conn.reason}</span>
+                      </div>
+                      <div className="mt-1 h-1 bg-gray-200 w-full max-w-[200px]" aria-label={`Connection strength: ${conn.score}`}>
+                        <div className="h-full bg-red-500" style={{ width: `${Math.min(conn.score * 10, 100)}%` }} />
+                      </div>
                     </div>
                     <ReceiptCard
                       receipt={conn.receipt}

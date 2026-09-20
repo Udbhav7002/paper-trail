@@ -23,8 +23,10 @@ export const Ledger = () => {
 
   const [visibleCount, setVisibleCount] = useState(50);
 
+  const [sort, setSort] = useState<'newest' | 'oldest' | 'title'>('newest');
+
   const filteredReceipts = useMemo(() => {
-    return receipts.filter((r) => {
+    const filtered = receipts.filter((r) => {
       const matchType = filters.type === 'all' || r.type === filters.type;
       const matchSearch =
         filters.search === '' ||
@@ -32,7 +34,13 @@ export const Ledger = () => {
         r.description.toLowerCase().includes(filters.search.toLowerCase());
       return matchType && matchSearch;
     });
-  }, [receipts, filters]);
+
+    const sorted = filtered.slice();
+    if (sort === 'newest') sorted.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+    if (sort === 'oldest') sorted.sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+    if (sort === 'title') sorted.sort((a, b) => a.title.localeCompare(b.title));
+    return sorted;
+  }, [receipts, filters, sort]);
 
   const visibleReceipts = useMemo(
     () => filteredReceipts.slice(0, visibleCount),
@@ -41,7 +49,7 @@ export const Ledger = () => {
 
   if (isLoading) {
     return (
-      <div className="py-20 text-center font-mono text-gray-500 animate-pulse" role="status">
+      <div className="py-20 text-center font-mono text-gray-600 animate-pulse" role="status">
         <span>Loading receipts…</span>
       </div>
     );
@@ -57,7 +65,7 @@ export const Ledger = () => {
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
           <div className="relative w-full md:w-96">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="text-gray-500" size={18} aria-hidden="true" />
+              <Search className="text-gray-600" size={18} aria-hidden="true" />
             </div>
             <input
               id="receipt-search"
@@ -78,7 +86,7 @@ export const Ledger = () => {
             role="group"
             aria-label="Filter by receipt type"
           >
-            <Filter className="text-gray-500 mr-1 shrink-0" size={16} aria-hidden="true" />
+            <Filter className="text-gray-600 mr-1 shrink-0" size={16} aria-hidden="true" />
             {TYPES.map((t) => (
               <button
                 key={t.value}
@@ -96,6 +104,16 @@ export const Ledger = () => {
                 {t.label}
               </button>
             ))}
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as typeof sort)}
+              aria-label="Sort receipts"
+              className="px-2 py-1.5 font-mono text-xs uppercase bg-white border-2 border-gray-300 min-h-[36px] ml-2 outline-none"
+            >
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="title">A–Z</option>
+            </select>
           </div>
         </div>
 
@@ -133,7 +151,7 @@ export const Ledger = () => {
 
       {/* Empty State */}
       {filteredReceipts.length === 0 && (
-        <div className="py-20 text-center font-mono text-gray-500" role="status">
+        <div className="py-20 text-center font-mono text-gray-600" role="status">
           No receipts found matching your criteria.
         </div>
       )}

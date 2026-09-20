@@ -18,6 +18,8 @@ const NAV_ITEMS: { view: ViewMode; icon: typeof LayoutGrid; label: string; alway
 function App() {
   const { activeView, setView, error, loadData } = useStore();
   const discoveredCount = useStore((s) => Object.keys(s.viewedReceiptIds).length);
+  const receipts = useStore((s) => s.receipts);
+  const setSelectedReceipt = useStore((s) => s.setSelectedReceipt);
 
   useEffect(() => {
     loadData();
@@ -44,6 +46,17 @@ function App() {
         </div>
 
         <div className="flex items-center gap-4">
+          <button
+            onClick={() => {
+              const r = receipts[Math.floor(Math.random() * receipts.length)];
+              if (r) setSelectedReceipt(r.id);
+            }}
+            className="px-3 py-2 bg-red-600 text-white font-mono text-[11px] uppercase tracking-widest hover:bg-red-700 min-h-[36px]"
+            aria-label="Open a random receipt and its connections"
+          >
+            Surprise me
+          </button>
+
           {/* Discovery Counter */}
           <div
             className="hidden sm:flex items-center gap-2 bg-red-50 border border-red-200 px-3 py-2 font-mono text-xs text-red-700"
