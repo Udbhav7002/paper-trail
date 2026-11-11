@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build artifacts
+*.tsbuildinfo
+
+# AI dump files
+all_code.txt
