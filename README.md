@@ -1,5 +1,7 @@
 # Paper Trail
 
+[![CI](https://github.com/Udbhav7002/paper-trail/actions/workflows/ci.yml/badge.svg)](https://github.com/Udbhav7002/paper-trail/actions/workflows/ci.yml)
+
 *4,464 digital receipts from one person's life (2015–2018), presented as a browsable, searchable story.*
 
 Paper Trail is a React data-viz narrative app built for the WebRush 6-hour frontend hackathon. It takes household transactions, Spotify listening history, and a few bridging notes, and presents them in four views: an explore table, a connection finder, a data-derived story, and an insights dashboard.
