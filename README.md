@@ -88,3 +88,7 @@ npm run build && npm run preview
 Three sources normalized into one `Receipt` model: Spotify history (2,000 sampled
 tracks, 2018), household transactions (2,461 entries, 2015–2018), synthetic bridges (3).
 Processed offline into `public/receipts.json` / `src/data/receipts.json`.
+
+## 📄 License
+
+Released under the [MIT License](LICENSE).
